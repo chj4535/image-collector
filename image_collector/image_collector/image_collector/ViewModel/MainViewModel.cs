@@ -4,120 +4,55 @@ using System.ComponentModel;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
+using image_collector.Model;
 
 namespace image_collector.ViewModel
 {
     public class MainViewModel : INotifyPropertyChanged
     {
-        private string _UserID;
-        public string UserID
+        MainModel mainModel = new MainModel();
+        private string _url;
+        public string url
         {
             get
             {
-                return _UserID;
+                return _url;
             }
 
             set
             {
-                if (_UserID == value) return;
-                _UserID = value;
-                OnPropertyChanged("UserID");
+                if (_url == value) return;
+                _url = value;
+                OnPropertyChanged("url");
             }
         }
 
-        private string _UserName;
-        public string UserName
+        private string _data;
+        public string data
         {
             get
             {
-                return _UserName;
+                return _data;
             }
 
             set
             {
-                if (_UserName == value) return;
-                _UserName = value;
-                OnPropertyChanged("UserName");
+                if (_data == value) return;
+                _data = value;
+                OnPropertyChanged("data");
             }
         }
 
-        private string _Email;
-        public string Email
-        {
-            get
-            {
-                return _Email;
-            }
-
-            set
-            {
-                if (_Email == value) return;
-                _Email = value;
-                OnPropertyChanged("Email");
-            }
-        }
-
-        private string _Telephone;
-        public string Telephone
-        {
-            get
-            {
-                return _Telephone;
-            }
-
-            set
-            {
-                if (_Telephone == value) return;
-                _Telephone = value;
-                OnPropertyChanged("Telephone");
-            }
-        }
-
-        private DateTime _RegistDate;
-        public DateTime RegistDate
-        {
-            get
-            {
-                return _RegistDate;
-            }
-
-            set
-            {
-                if (_RegistDate == value) return;
-                _RegistDate = value;
-                OnPropertyChanged("RegistDate");
-            }
-        }
-
-        public ICommand RegistCommand { get; private set; }
-        public ICommand ModifyCommand { get; private set; }
-        public ICommand DeleteCommand { get; private set; }
+        public ICommand ChangeUrlCommand { get; private set; }
 
         public MainViewModel()
         {
-            RegistCommand = new Command(Regist);
-            ModifyCommand = new Command<string>(Modify);
-            DeleteCommand = new Command(Delete);
-            this.UserID = "Eddy.Kang";
-            this.UserName = "강창훈";
-            this.Email = "admin@signalsoft.co.kr";
-            this.Telephone = "010-2760-5246";
-            this.RegistDate = DateTime.Now;
+            ChangeUrlCommand = new Command<string>(ChangeUrl);
         }
 
-        private void Regist()
+        private void ChangeUrl(string commandPrameter)
         {
-
-        }
-
-        private void Modify(string commandPrameter)
-        {
-            var test = commandPrameter;
-        }
-
-        private void Delete()
-        {
-
+            this.data = mainModel.CrawlingUrl(commandPrameter);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

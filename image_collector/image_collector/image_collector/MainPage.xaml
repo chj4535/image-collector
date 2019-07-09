@@ -4,56 +4,38 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             xmlns:vm="clr-namespace:image_collector.ViewModel"
              x:Class="image_collector.MainPage">
 
     <ContentPage.Resources>
     </ContentPage.Resources>
 
+    <ContentPage.BindingContext>
+        <vm:MainViewModel />
+    </ContentPage.BindingContext>
 
-
-    <Grid Margin="5,5,5,5">
+    <Grid Margin="5,5,5,5" >
         <Grid.RowDefinitions>
             <RowDefinition Height="40"></RowDefinition>
-            <RowDefinition Height="40"></RowDefinition>
-            <RowDefinition Height="40"></RowDefinition>
-            <RowDefinition Height="40"></RowDefinition>
-            <RowDefinition Height="40"></RowDefinition>
-            <RowDefinition Height="40"></RowDefinition>
-            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="120"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100"></ColumnDefinition>
+            <ColumnDefinition Width="50"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="70"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Label x:Name="lblTitle" Grid.Row="0" Grid.ColumnSpan="2" Text="User Information Manager"   FontAttributes="Bold" FontSize="Large"></Label>
+        <Label Grid.Row="0" Grid.Column="0" Text="url"/>
+        <Entry x:Name="entry_url" Grid.Row="0" Grid.Column="1" Placeholder="input url" 
+               Text="{Binding url,Mode=TwoWay}"/>
+        <Button Grid.Row="0" Grid.Column="2" Text="enter" 
+                Command="{Binding ChangeUrlCommand}" CommandParameter="{Binding Source={x:Reference entry_url},Path=Text}"/>
 
-        <Label Grid.Row="1" Grid.Column="0" Text="UserID"></Label>
-        <Entry Grid.Row="1" Grid.Column="1" Text="{Binding UserID,Mode=TwoWay}"></Entry>
-
-        <Label Grid.Row="2" Grid.Column="0" Text="UserName"></Label>
-        <Entry Grid.Row="2" Grid.Column="1" Text="{Binding UserName,Mode=TwoWay}"></Entry>
-
-        <Label Grid.Row="3" Grid.Column="0" Text="Email"></Label>
-        <Entry Grid.Row="3" Grid.Column="1" Text="{Binding Email,Mode=TwoWay}"></Entry>
-
-        <Label Grid.Row="4" Grid.Column="0" Text="Telephone"></Label>
-        <Entry Grid.Row="4" Grid.Column="1" Text="{Binding Telephone,Mode=TwoWay}"></Entry>
-
-        <Label Grid.Row="5" Grid.Column="0" Text="RegistDate" ></Label>
-        <Entry Grid.Row="5" Grid.Column="1" Text="{Binding RegistDate,Mode=TwoWay}"></Entry>
-
-        <StackLayout Grid.Row="6" Grid.ColumnSpan="2" HorizontalOptions="Center" Orientation="Horizontal">
-            <Button Text="REGIST" Command="{Binding RegistCommand}"></Button>
-            <Button Text="MODIFY" Command="{Binding ModifyCommand}" CommandParameter="M"></Button>
-            <Button Text="DELETE" Command="{Binding DeleteCommand}"></Button>
-        </StackLayout>
-
-        <ListView Grid.Row="7" Grid.ColumnSpan="2" HorizontalOptions="Fill" VerticalOptions="FillAndExpand">
-        </ListView>
-
+        <Label Grid.Row="1" Grid.Column="0" Text="data"/>
+        <Editor Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" 
+                Placeholder="result data" Text="{Binding data}"/>
     </Grid>
 
 </ContentPage>
