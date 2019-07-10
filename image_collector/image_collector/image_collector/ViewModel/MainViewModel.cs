@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 using image_collector.Model;
+using System.Collections.ObjectModel;
 
 namespace image_collector.ViewModel
 {
@@ -43,16 +44,20 @@ namespace image_collector.ViewModel
             }
         }
 
+        public ObservableCollection<string> imgList { get; set; }
+
         public ICommand ChangeUrlCommand { get; private set; }
 
         public MainViewModel()
         {
+            imgList = new ObservableCollection<string>();
             ChangeUrlCommand = new Command<string>(ChangeUrl);
         }
 
         private void ChangeUrl(string commandPrameter)
         {
-            this.data = mainModel.CrawlingUrl(commandPrameter);
+            this.imgList = mainModel.CrawlingUrl(commandPrameter);
+            OnPropertyChanged("imgList");
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

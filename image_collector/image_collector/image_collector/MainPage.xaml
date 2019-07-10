@@ -17,7 +17,6 @@
     <Grid Margin="5,5,5,5" >
         <Grid.RowDefinitions>
             <RowDefinition Height="40"></RowDefinition>
-            <RowDefinition Height="120"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
@@ -33,9 +32,18 @@
         <Button Grid.Row="0" Grid.Column="2" Text="enter" 
                 Command="{Binding ChangeUrlCommand}" CommandParameter="{Binding Source={x:Reference entry_url},Path=Text}"/>
 
-        <Label Grid.Row="1" Grid.Column="0" Text="data"/>
-        <Editor Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" 
-                Placeholder="result data" Text="{Binding data}"/>
+        <Label Grid.Row="1" Grid.Column="0" Text="imgs"/>
+        <ScrollView Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
+            <FlexLayout BindableLayout.ItemsSource="{Binding imgList}" Wrap="Wrap">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Image Source="{Binding}" Margin="5"></Image>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </FlexLayout>
+        </ScrollView>
     </Grid>
+    
+    
 
 </ContentPage>

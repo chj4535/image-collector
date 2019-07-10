@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Net;
 using System.Text;
 using HtmlAgilityPack;
@@ -18,16 +19,39 @@ namespace image_collector.Model
             return false;
         }
 
-        public string CrawlingUrl(string url)
+        public ObservableCollection<string> CrawlingUrl(string url)
         {
+            ObservableCollection<string> result=new ObservableCollection<string>();
             if (!CheckUrl(url)) //check url have http or https
             {
                 url = "http://" + url;
             }
-            WebClient client = new WebClient();
-            client.Encoding = Encoding.UTF8;
-            string siteSource = client.DownloadString(url);
-            return siteSource;
+
+            HtmlWeb htmlWeb = new HtmlWeb();
+            HtmlAgilityPack.HtmlDocument document = htmlWeb.Load(url);
+            HtmlNode bodyNode = document.DocumentNode.SelectSingleNode("//body");
+            if (bodyNode != null)
+            {
+                string src = "";
+                HtmlNodeCollection imgNods = document.DocumentNode.SelectNodes("//img");
+                foreach(HtmlNode htmlNode in imgNods)
+                {
+                    try
+                    {
+                        src = htmlNode.Attributes["src"].Value;
+                    }
+                    catch
+                    {
+                        continue;
+                    }
+                    if (src != null && src!="")
+                    {
+                        result.Add(src);
+                    }
+                    
+                }
+            }
+            return result;
         }
     }
 }
