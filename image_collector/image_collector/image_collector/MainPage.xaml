@@ -21,22 +21,22 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="50"></ColumnDefinition>
+            <ColumnDefinition Width="60"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="70"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="0" Text="url"/>
+        <Label Grid.Row="0" Grid.Column="0" Text="url" HorizontalTextAlignment="Center" FontSize="20" VerticalTextAlignment="Center"/>
         <Entry x:Name="entry_url" Grid.Row="0" Grid.Column="1" Placeholder="input url" 
-               Text="{Binding url,Mode=TwoWay}"/>
+               Text="{Binding url,Mode=TwoWay}" VerticalOptions="Center"/>
         <Button Grid.Row="0" Grid.Column="2" Text="enter" 
                 Command="{Binding ChangeUrlCommand}" CommandParameter="{Binding Source={x:Reference entry_url},Path=Text}"/>
 
-        <Label Grid.Row="1" Grid.Column="0" Text="imgs"/>
+        <Label Grid.Row="1" Grid.Column="0" Text="imgs" HorizontalTextAlignment="Center" FontSize="20" Margin="5,10,5,0"/>
         <ScrollView Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
             <FlexLayout BindableLayout.ItemsSource="{Binding imgList}" Wrap="Wrap">
                 <BindableLayout.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate>                               
                         <Image Source="{Binding}" Margin="5"></Image>
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
